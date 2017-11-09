@@ -163,11 +163,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application2D.cpp" />
+    <ClCompile Include="Lane2D.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Ship2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application2D.h" />
-    <ClInclude Include="Grid2D.h" />
+    <ClInclude Include="Lane2D.h" />
+    <ClInclude Include="Ship2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
