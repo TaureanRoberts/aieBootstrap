@@ -13,13 +13,13 @@ Lane2D::Lane2D(float x, float y)
 	mY = y;
 }
 
-Lane2D Lane2D::GetX(Lane2D & other)
+Lane2D Lane2D::SetX(Lane2D & other)
 {
 
 	return Lane2D();
 }
 
-Lane2D Lane2D::GetY(Lane2D & other)
+Lane2D Lane2D::SetY(Lane2D & other)
 {
 
 	return Lane2D();

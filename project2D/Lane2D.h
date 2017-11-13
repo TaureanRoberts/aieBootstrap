@@ -11,6 +11,6 @@ public:
 	float mY;
 	Lane2D();
 	Lane2D(float x, float y);
-	Lane2D GetX(Lane2D &other);
-	Lane2D GetY(Lane2D &other);
+	Lane2D SetX(Lane2D &other);
+	Lane2D SetY(Lane2D &other);
 };
