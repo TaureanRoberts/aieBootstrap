@@ -24,18 +24,12 @@
     <ClCompile Include="Lane2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ship2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Lane2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
