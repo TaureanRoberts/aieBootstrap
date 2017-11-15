@@ -26,7 +26,6 @@ protected:
 	float m_timer;
 
 public:
-	
-
+	float mAxisX, mAxisY;
 
 };
