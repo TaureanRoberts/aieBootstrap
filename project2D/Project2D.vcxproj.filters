@@ -24,6 +24,9 @@
     <ClCompile Include="Lane2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Player2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application2D.h">
@@ -32,7 +35,7 @@
     <ClInclude Include="Lane2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
+    <ClInclude Include="Player2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

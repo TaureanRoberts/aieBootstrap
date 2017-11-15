@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Lane2D.h"
 #include "Application.h"
 #include "Renderer2D.h"
 
@@ -24,4 +24,9 @@ protected:
 
 	float m_cameraX, m_cameraY;
 	float m_timer;
+
+public:
+	
+
+
 };
