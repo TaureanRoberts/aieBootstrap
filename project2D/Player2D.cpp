@@ -1,21 +1,14 @@
 #include "Player2D.h"
 
-player2D::player2D()
+Player2D::Player2D()
 {
-	mX = 15;
-	mY = 15;
+	mPos.mX = 120;
+	mPos.mY = 640;
+	mScale.mX = 50;
+	mScale.mY = 50;
+	isAlive = true;
 }
 
-player2D::player2D(float lhs, float rhs)
+Player2D::~Player2D()
 {
-	mX = lhs;
-	mY = rhs;
-}
-
-void player2D::PlayerMove()
-{
-	for (float i = 0; i < mX; i++)
-	{
-		
-	}
 }

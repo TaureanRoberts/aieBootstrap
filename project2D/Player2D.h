@@ -1,12 +1,10 @@
 #pragma once
+#include "Entity.h"
 
-class player2D
+class Player2D : public Entity
 {
 public:
-	float mX;
-	float mY;
-	player2D();
-	player2D(float lhs, float rhs);
-	void PlayerMove();
-
+	Player2D();
+	~Player2D();
+	bool isAlive;
 };
