@@ -7,4 +7,5 @@ public:
 	EnemyShip();
 	~EnemyShip();
 	void mMove(float mTime);
+	bool noCrash;
 };

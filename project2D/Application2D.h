@@ -24,7 +24,6 @@ protected:
 	aie::Texture*		m_shipTexture;
 	aie::Font*			m_font;
 
-	aie::Texture*       m_Triangle;
 	aie::Texture*       m_Background;
 
 	float m_cameraX, m_cameraY;
@@ -32,6 +31,7 @@ protected:
 
 	Player2D *mPlayer;
 	EnemyShip *mEnemy;
+
 
 
 	//Win Condition

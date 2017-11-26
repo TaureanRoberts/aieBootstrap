@@ -3,7 +3,7 @@
 Player2D::Player2D()
 {
 	mPos.mX = 120;
-	mPos.mY = 640;
+	mPos.mY = 400;
 	mScale.mX = 50;
 	mScale.mY = 50;
 	isAlive = true;
