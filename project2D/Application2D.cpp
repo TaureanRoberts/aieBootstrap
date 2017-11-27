@@ -20,11 +20,13 @@ bool Application2D::startup() {
 
 	m_texture = new aie::Texture("./textures/numbered_grid.tga");
 	m_shipTexture = new aie::Texture("./textures/ship.png");
+	m_font = new aie::Font("./font/consolas.ttf", 32);
 
 	m_Loser = new aie::Texture("./textures/gameOver.png");
 	m_Winner = new aie::Texture("./textures/winDoge.jpg");
 	m_DebrisL = new aie::Texture("./textures/rock_large.png");
-	m_font = new aie::Font("./font/consolas.ttf", 32);
+	m_EnemyShip = new aie::Texture("./textures/EnemyShip.png");
+	m_Background = new aie::Texture("./textures/SpaceBG.jpg");
 	
 	m_cameraX = 0;
 	m_cameraY = 0;
@@ -34,12 +36,11 @@ bool Application2D::startup() {
 	mDebris = new Debris[10];
 	shipLived = true;
 	
-	//Hardsetting Enemy position
+	//Hardsetting Debris position
 	float setX = 450;
 	float setY = 600;
 	for (int i = 0; i < 50; i++)
 	{
-
 		mDebris[i].mPos.mX = setX;
 		mDebris[i].mPos.mY = setY;
 			setX += 100;
@@ -54,8 +55,8 @@ bool Application2D::startup() {
 	return true;
 }
 
-void Application2D::shutdown() {
-	//delete mEnemy;
+void Application2D::shutdown() 
+{
 	delete m_font;
 	delete m_texture;
 	delete m_shipTexture;
@@ -81,7 +82,7 @@ void Application2D::update(float deltaTime) {
 	if (mPlayer->mPos.mY < 30)
 		mPlayer->mPos.mY = 29;
 
-	//Enemy movement
+	//Debris movement
 	for (int i = 0; i < 10; i++)
 		mDebris[i].mMove(deltaTime);
 
@@ -113,7 +114,7 @@ void Application2D::draw()
 
 	// begin drawing sprites
 	m_2dRenderer->begin();
-	
+	//m_2dRenderer->drawSprite(m_Background, 640, 360, 1280, 720);
 	//Player Ship
 	if (mPlayer->isAlive)
 		m_2dRenderer->drawSprite(m_shipTexture, mPlayer->mPos.mX, mPlayer->mPos.mY, mPlayer->mScale.mY, mPlayer->mScale.mY, -1.5f);
@@ -123,8 +124,18 @@ void Application2D::draw()
 	{
 		if (mDebris[i].didCrash)
 		{
-			m_2dRenderer->drawSprite( m_DebrisL, mDebris[i].mPos.mX, mDebris[i].mPos.mY, mDebris[i].mScale.mX, mDebris[i].mScale.mY);
+			m_2dRenderer->drawSprite(m_DebrisL, mDebris[i].mPos.mX, mDebris[i].mPos.mY, mDebris[i].mScale.mX, mDebris[i].mScale.mY);
 		}
+	}
+
+	//Enemy Ship
+	for (int i = 0; i < 10; i++)
+	{
+		if (mEnemy[i].didCrash)
+		{
+			m_2dRenderer->drawSprite(m_EnemyShip, mEnemy[i].mPos.mX, mEnemy[i].mPos.mY, mEnemy[i].mScale.mX, mEnemy[i].mScale.mY);
+		}
+	}
 
 		// demonstrate animation
 		//m_2dRenderer->setUVRect(int(m_timer) % 8 / 8.0f, 0, 1.f / 8, 1.f / 8);
@@ -167,5 +178,5 @@ void Application2D::draw()
 
 		// done drawing sprites
 		m_2dRenderer->end();
-	}
+	
 }
