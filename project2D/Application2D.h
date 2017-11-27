@@ -5,7 +5,6 @@
 #include "Player2D.h"
 #include "Debris.h"
 #include "Enemy2D.h"
-#include <time.h>
 
 class Application2D : public aie::Application {
 public:
@@ -23,7 +22,6 @@ protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Texture*		m_texture;
-	aie::Texture*		m_shipTexture;
 	aie::Font*			m_font;
 
 	aie::Texture*       m_Winner;
@@ -31,12 +29,13 @@ protected:
 	aie::Texture*       m_Background;
 	aie::Texture*       m_DebrisL;
 	aie::Texture*       m_EnemyShip;
+	aie::Texture*		m_shipTexture;
 
 	float m_cameraX, m_cameraY;
 	float m_timer;
 
 	Player2D *mPlayer;
-	Player2D *isAlive;
+	//Player2D *isAlive;
 	Debris *mDebris; 
 	Enemy2D *mEnemy;
 	float timeLeft;

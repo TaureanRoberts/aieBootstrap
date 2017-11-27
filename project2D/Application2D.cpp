@@ -3,6 +3,7 @@
 #include "Font.h"
 #include "Input.h"
 #include <application.h>
+#include "Player2D.h"
 
 
 Application2D::Application2D() {
@@ -19,7 +20,7 @@ bool Application2D::startup() {
 	
 
 	m_texture = new aie::Texture("./textures/numbered_grid.tga");
-	m_shipTexture = new aie::Texture("./textures/ship.png");
+	m_shipTexture = new aie::Texture("./textures/wship1.png");
 	m_font = new aie::Font("./font/consolas.ttf", 32);
 
 	m_Loser = new aie::Texture("./textures/gameOver.png");
@@ -34,7 +35,8 @@ bool Application2D::startup() {
 
 	mPlayer = new Player2D;
 	mDebris = new Debris[10];
-	shipLived = true;
+	mEnemy = new Enemy2D[10];
+	shipLived = false;
 	
 	//Hardsetting Debris position
 	float setX = 450;
@@ -51,6 +53,18 @@ bool Application2D::startup() {
 			}
 	}
 
+	for (int i = 0; i < 50; i++)
+	{
+		mEnemy[i].mPos.mX = setX;
+		mEnemy[i].mPos.mY = setY;
+		setX += 100;
+		if (setX == 950)
+		{
+			setX = 450;
+			setY -= 100;
+		}
+	}
+
 	
 	return true;
 }
@@ -61,6 +75,12 @@ void Application2D::shutdown()
 	delete m_texture;
 	delete m_shipTexture;
 	delete m_2dRenderer;
+
+	delete m_Background;
+	delete m_Winner;
+	delete m_Loser;
+	delete m_EnemyShip;
+	delete m_DebrisL;
 }
 
 void Application2D::update(float deltaTime) {
@@ -84,6 +104,10 @@ void Application2D::update(float deltaTime) {
 
 	//Debris movement
 	for (int i = 0; i < 10; i++)
+		mDebris[i].mMove(deltaTime);
+
+	//Enemy movement
+	for (int i = 0; i < 20; i++)
 		mDebris[i].mMove(deltaTime);
 
 	//Impact rules
@@ -117,7 +141,7 @@ void Application2D::draw()
 	//m_2dRenderer->drawSprite(m_Background, 640, 360, 1280, 720);
 	//Player Ship
 	if (mPlayer->isAlive)
-		m_2dRenderer->drawSprite(m_shipTexture, mPlayer->mPos.mX, mPlayer->mPos.mY, mPlayer->mScale.mY, mPlayer->mScale.mY, -1.5f);
+		m_2dRenderer->drawSprite(m_shipTexture, mPlayer->mPos.mX, mPlayer->mPos.mY, mPlayer->mScale.mY, mPlayer->mScale.mY);
 
 	//Debris
 	for (int i = 0; i < 5; i++)
@@ -129,7 +153,7 @@ void Application2D::draw()
 	}
 
 	//Enemy Ship
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		if (mEnemy[i].didCrash)
 		{
@@ -167,14 +191,14 @@ void Application2D::draw()
 		m_2dRenderer->drawText(m_font, "Press ESC to quit!", 0, 720 - 64);
 
 		//Win Conditions
-		/*if (shipLived)
+		if (shipLived)
 		{
 			m_2dRenderer->drawSprite(m_Winner, 640, 360, 1280, 720);
 		}
 		if (mPlayer->isAlive == false)
 		{
 			m_2dRenderer->drawSprite(m_Loser, 640, 360, 1280, 720);
-		}*/
+		}
 
 		// done drawing sprites
 		m_2dRenderer->end();
