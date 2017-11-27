@@ -163,14 +163,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application2D.cpp" />
-    <ClCompile Include="EnemyShip.cpp" />
+    <ClCompile Include="Debris.cpp" />
+    <ClCompile Include="Enemy2D.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application2D.h" />
-    <ClInclude Include="EnemyShip.h" />
+    <ClInclude Include="Debris.h" />
+    <ClInclude Include="Enemy2D.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Player2D.h" />
   </ItemGroup>
