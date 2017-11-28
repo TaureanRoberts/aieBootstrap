@@ -35,7 +35,6 @@ protected:
 	float m_timer;
 
 	Player2D *mPlayer;
-	//Player2D *isAlive;
 	Debris *mDebris; 
 	Enemy2D *mEnemy;
 	float timeLeft;

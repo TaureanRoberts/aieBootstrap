@@ -39,24 +39,12 @@ bool Application2D::startup() {
 	shipLived = false;
 	
 	//Hardsetting Debris position
-	float setX = 450;
+    float setX = 450;
 	float setY = 600;
 	for (int i = 0; i < 50; i++)
 	{
 		mDebris[i].mPos.mX = setX;
 		mDebris[i].mPos.mY = setY;
-			setX += 100;
-			if (setX == 950)
-			{
-				setX = 450;
-				setY -= 100;
-			}
-	}
-
-	for (int i = 0; i < 50; i++)
-	{
-		mEnemy[i].mPos.mX = setX;
-		mEnemy[i].mPos.mY = setY;
 		setX += 100;
 		if (setX == 950)
 		{
@@ -64,6 +52,7 @@ bool Application2D::startup() {
 			setY -= 100;
 		}
 	}
+
 
 	
 	return true;
@@ -90,34 +79,24 @@ void Application2D::update(float deltaTime) {
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 	Vector2 playerPos(mPlayer->mPos.mX, mPlayer->mPos.mY);
-	// use arrow keys to move ship
-	if (input->isKeyDown(aie::INPUT_KEY_UP))
-		mPlayer->mPos.mY += 500.0f * deltaTime;
-	if (input->isKeyDown(aie::INPUT_KEY_DOWN))
-		mPlayer->mPos.mY -= 500.0f * deltaTime;
-	
-	//Gives the ship its area to move upon
-	if (mPlayer->mPos.mY > 690)
-		mPlayer->mPos.mY = 689;
-	if (mPlayer->mPos.mY < 30)
-		mPlayer->mPos.mY = 29;
+	//Calls Player Movement
+	mPlayer->Update(deltaTime);
 
 	//Debris movement
-	for (int i = 0; i < 10; i++)
-		mDebris[i].mMove(deltaTime);
+	mDebris->mMove(deltaTime);
 
-	//Enemy movement
-	for (int i = 0; i < 20; i++)
-		mDebris[i].mMove(deltaTime);
+	////Enemy movement
+	//mEnemy->mMove(deltaTime);
 
 	//Impact rules
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 25; i++)
 	{
-		if (mDebris[i].mPos.mY < 0)
+		if (mDebris[i].mPos.mY < 0 && mDebris[i].mPos.mX < 0)
 			mPlayer->isAlive = false;
-		if (mDebris[i].mPos.mY > mPlayer->mPos.mY - (mPlayer->mScale.mY / 2) && mDebris[i].mPos.mY < mPlayer->mPos.mY + (mPlayer->mScale.mY / 2))
+		if (mDebris[i].mPos.mY < mPlayer->mPos.mY -(mPlayer->mScale.mY / 2) && mDebris[i].mPos.mY > mPlayer->mPos.mX - (mPlayer->mScale.mX / 2))
 		{
-			if (mDebris[i].mPos.mX > mPlayer->mPos.mX - (mPlayer->mScale.mX / 2) && mDebris[i].mPos.mX < mPlayer->mPos.mX + (mPlayer->mScale.mX / 2))
+			//mDebris[i].mPos.mY > mPlayer->mPos.mY - (mPlayer->mScale.mY / 2) && mDebris[i].mPos.mY < mPlayer->mPos.mY + (mPlayer->mScale.mY / 2)
+			if (mDebris[i].mScale.mX == mPlayer->mScale.mX && mDebris[i].mScale.mY == mPlayer->mScale.mY)
 				mPlayer->isAlive = false;
 		}
 	}
@@ -138,7 +117,7 @@ void Application2D::draw()
 
 	// begin drawing sprites
 	m_2dRenderer->begin();
-	//m_2dRenderer->drawSprite(m_Background, 640, 360, 1280, 720);
+	m_2dRenderer->drawSprite(m_Background, 640, 360, 1280, 720);
 	//Player Ship
 	if (mPlayer->isAlive)
 		m_2dRenderer->drawSprite(m_shipTexture, mPlayer->mPos.mX, mPlayer->mPos.mY, mPlayer->mScale.mY, mPlayer->mScale.mY);
@@ -152,14 +131,14 @@ void Application2D::draw()
 		}
 	}
 
-	//Enemy Ship
-	for (int i = 0; i < 2; i++)
-	{
-		if (mEnemy[i].didCrash)
-		{
-			m_2dRenderer->drawSprite(m_EnemyShip, mEnemy[i].mPos.mX, mEnemy[i].mPos.mY, mEnemy[i].mScale.mX, mEnemy[i].mScale.mY);
-		}
-	}
+	////Enemy Ship
+	//for (int i = 0; i < 2; i++)
+	//{
+	//	if (mEnemy[i].didCrash)
+	//	{
+	//		m_2dRenderer->drawSprite(m_EnemyShip, mEnemy[i].mPos.mX, mEnemy[i].mPos.mY, mEnemy[i].mScale.mX, mEnemy[i].mScale.mY);
+	//	}
+	//}
 
 		// demonstrate animation
 		//m_2dRenderer->setUVRect(int(m_timer) % 8 / 8.0f, 0, 1.f / 8, 1.f / 8);
