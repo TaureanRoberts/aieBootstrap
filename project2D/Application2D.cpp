@@ -91,13 +91,18 @@ void Application2D::update(float deltaTime) {
 	//Impact rules
 	for (int i = 0; i < 25; i++)
 	{
-		if (mDebris[i].mPos.mY < 0 && mDebris[i].mPos.mX < 0)
+		if (mDebris[i].mScale.mY == mPlayer->mScale.mX)
+		
 			mPlayer->isAlive = false;
-		if (mDebris[i].mPos.mY < mPlayer->mPos.mY -(mPlayer->mScale.mY / 2) && mDebris[i].mPos.mY > mPlayer->mPos.mX - (mPlayer->mScale.mX / 2))
+		
+		Vector2 debrisPoints[4] = { Vector2(mDebris[i].mPos.mX + mDebris[i].mScale.mX, mDebris[i].mPos.mY + mDebris[i].mScale.mY),
+								    Vector2(mDebris[i].mPos.mX - mDebris[i].mScale.mX, mDebris[i].mPos.mY - mDebris[i].mScale.mY)};
+		Vector2 playerPoints[4] = { Vector2(mPlayer[i].mPos.mX + mPlayer[i].mScale.mX, mPlayer[i].mPos.mY + mPlayer[i].mScale.mY),
+									Vector2(mPlayer[i].mPos.mX - mPlayer[i].mScale.mX, mPlayer[i].mPos.mY - mPlayer[i].mScale.mY)};
+		if (debrisPoints[i] == playerPoints[i])
 		{
-			//mDebris[i].mPos.mY > mPlayer->mPos.mY - (mPlayer->mScale.mY / 2) && mDebris[i].mPos.mY < mPlayer->mPos.mY + (mPlayer->mScale.mY / 2)
-			if (mDebris[i].mScale.mX == mPlayer->mScale.mX && mDebris[i].mScale.mY == mPlayer->mScale.mY)
-				mPlayer->isAlive = false;
+			if ((debrisPoints[i].mY == playerPoints[i].mY)&&(debrisPoints[i].mX == playerPoints[i].mX))
+				mPlayer->isAlive == false;
 		}
 	}
 
@@ -170,10 +175,10 @@ void Application2D::draw()
 		m_2dRenderer->drawText(m_font, "Press ESC to quit!", 0, 720 - 64);
 
 		//Win Conditions
-		if (shipLived)
+		/*if (shipLived = true)
 		{
 			m_2dRenderer->drawSprite(m_Winner, 640, 360, 1280, 720);
-		}
+		}*/
 		if (mPlayer->isAlive == false)
 		{
 			m_2dRenderer->drawSprite(m_Loser, 640, 360, 1280, 720);

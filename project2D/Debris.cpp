@@ -2,8 +2,8 @@
 
 Debris::Debris()
 {
-	mPos.mX;
-	mPos.mY;
+	mPos.mX = 0;
+	mPos.mY = 0;
 	mScale.mX = 100;
 	mScale.mY = 100;
 	didCrash = true;
