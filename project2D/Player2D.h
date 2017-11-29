@@ -8,8 +8,7 @@ public:
 	Player2D();
 	~Player2D();
 	void Update(float deltaTime);
-	void Collision(float deltaTime);
+	bool Collision();
 	bool isAlive;
-	int mRock;
 	Debris *mDebris;
 };

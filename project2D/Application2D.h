@@ -4,7 +4,6 @@
 #include "Entity.h"
 #include "Player2D.h"
 #include "Debris.h"
-#include "Enemy2D.h"
 
 class Application2D : public aie::Application {
 public:
@@ -28,15 +27,13 @@ protected:
 	aie::Texture*       m_Loser;
 	aie::Texture*       m_Background;
 	aie::Texture*       m_DebrisL;
-	aie::Texture*       m_EnemyShip;
 	aie::Texture*		m_shipTexture;
 
 	float m_cameraX, m_cameraY;
 	float m_timer;
 
 	Player2D *mPlayer;
-	Debris *mDebris; 
-	Enemy2D *mEnemy;
+	Debris *mDebris;
 	float timeLeft;
 
 	//Win Condition

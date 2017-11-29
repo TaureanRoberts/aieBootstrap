@@ -17,7 +17,6 @@ Application2D::~Application2D() {
 bool Application2D::startup() {
 	
 	m_2dRenderer = new aie::Renderer2D();
-	
 
 	m_texture = new aie::Texture("./textures/numbered_grid.tga");
 	m_shipTexture = new aie::Texture("./textures/wship1.png");
@@ -26,22 +25,20 @@ bool Application2D::startup() {
 	m_Loser = new aie::Texture("./textures/gameOver.png");
 	m_Winner = new aie::Texture("./textures/winDoge.jpg");
 	m_DebrisL = new aie::Texture("./textures/rock_large.png");
-	m_EnemyShip = new aie::Texture("./textures/EnemyShip.png");
 	m_Background = new aie::Texture("./textures/SpaceBG.jpg");
 	
 	m_cameraX = 0;
 	m_cameraY = 0;
 	m_timer = 0;
 
-	mPlayer = new Player2D;
+	mPlayer = new Player2D[10];
 	mDebris = new Debris[10];
-	mEnemy = new Enemy2D[10];
 	shipLived = false;
 	
 	//Hardsetting Debris position
     float setX = 450;
 	float setY = 600;
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		mDebris[i].mPos.mX = setX;
 		mDebris[i].mPos.mY = setY;
@@ -52,9 +49,6 @@ bool Application2D::startup() {
 			setY -= 100;
 		}
 	}
-
-
-	
 	return true;
 }
 
@@ -64,11 +58,12 @@ void Application2D::shutdown()
 	delete m_texture;
 	delete m_shipTexture;
 	delete m_2dRenderer;
-
+	
+	delete[] mPlayer;
+	delete[] mDebris;
 	delete m_Background;
 	delete m_Winner;
 	delete m_Loser;
-	delete m_EnemyShip;
 	delete m_DebrisL;
 }
 
@@ -82,16 +77,15 @@ void Application2D::update(float deltaTime) {
 	//Calls Player Movement
 	mPlayer->Update(deltaTime);
 
-	//Debris movement
+	//Debris movement + position
 	mDebris->Move(deltaTime);
-
-	////Enemy movement
-	//mEnemy->mMove(deltaTime);
+	//mDebris->RockPos(deltaTime);
 
 	//Impact rules
-	//mPlayer->Collision(deltaTime);
-
-	for (int i = 0; i < 15; i++)
+	
+	if (mPlayer->Collision() == true);
+	
+	/*for (int i = 0; i < 10; i++)
 	{
 		if (mDebris[i].mPos.mY < 0)
 			mPlayer->isAlive = false;
@@ -100,7 +94,7 @@ void Application2D::update(float deltaTime) {
 			if (mDebris[i].mPos.mX > mPlayer->mPos.mX - (mPlayer->mScale.mX / 2) && mDebris[i].mPos.mX < mPlayer->mPos.mX + (mPlayer->mScale.mX / 2))
 				mPlayer->isAlive = false;
 		}
-	}
+	}*/
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -128,19 +122,9 @@ void Application2D::draw()
 	{
 		if (mDebris[i].didCrash)
 		{
-			
 			m_2dRenderer->drawSprite(m_DebrisL, mDebris[i].mPos.mX, mDebris[i].mPos.mY, mDebris[i].mScale.mX, mDebris[i].mScale.mY);
 		}
 	}
-
-	////Enemy Ship
-	//for (int i = 0; i < 2; i++)
-	//{
-	//	if (mEnemy[i].didCrash)
-	//	{
-	//		m_2dRenderer->drawSprite(m_EnemyShip, mEnemy[i].mPos.mX, mEnemy[i].mPos.mY, mEnemy[i].mScale.mX, mEnemy[i].mScale.mY);
-	//	}
-	//}
 
 		// demonstrate animation
 		//m_2dRenderer->setUVRect(int(m_timer) % 8 / 8.0f, 0, 1.f / 8, 1.f / 8);

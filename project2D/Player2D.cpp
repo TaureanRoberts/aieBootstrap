@@ -1,5 +1,7 @@
 #include "Player2D.h"
 #include <Input.h>
+#include "Debris.h"
+#include "Application2D.h"
 
 Player2D::Player2D()
 {
@@ -9,11 +11,11 @@ Player2D::Player2D()
 	mScale.mY = 100;
 	isAlive = true;
 	mDebris = new Debris[15];
-	mRock = 10;
+	
 }
 
 Player2D::~Player2D()
-{
+{ 
 }
 
 void Player2D::Update(float deltaTime)
@@ -33,9 +35,10 @@ void Player2D::Update(float deltaTime)
 		mPos.mY = 29;
 }
 
-void Player2D::Collision(float deltatime)
+bool Player2D::Collision()
 {
-	for (int i = 0; i < mRock; i++)
+	mDebris[15];
+	for (int i = 0; i < 15; i++)
 	{
 		if (mDebris[i].mPos.mY < 0)
 			isAlive = false;
@@ -45,4 +48,5 @@ void Player2D::Collision(float deltatime)
 				isAlive = false;
 		}
 	}
+	return true;
 }

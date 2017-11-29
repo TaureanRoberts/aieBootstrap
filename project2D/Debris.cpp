@@ -19,3 +19,20 @@ void Debris::Move(float deltaTime)
 	for (int i = 0; i < 20; i++)
 		mPos.mX -= 4.0f * deltaTime;
 }
+
+void Debris::RockPos()
+{
+	float setX = 450;
+	float setY = 600;
+	for (int i = 0; i < 50; i++)
+	{
+		mPos.mX = setX;
+		mPos.mY = setY;
+		setX += 100;
+		if (setX == 950)
+		{
+			setX = 450;
+			setY -= 100;
+		}
+	}
+}
