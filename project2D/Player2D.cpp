@@ -5,9 +5,10 @@ Player2D::Player2D()
 {
 	mPos.mX = 120;
 	mPos.mY = 400;
-	mScale.mX = 50;
-	mScale.mY = 50;
+	mScale.mX = 100;
+	mScale.mY = 100;
 	isAlive = true;
+	mDebris = new Debris[15];
 }
 
 Player2D::~Player2D()
@@ -29,4 +30,18 @@ void Player2D::Update(float deltaTime)
 		mPos.mY = 689;
 	if (mPos.mY < 30)
 		mPos.mY = 29;
+}
+
+void Player2D::Collision(float deltatime)
+{
+	for (int i = 0; i < 15; i++)
+	{
+		if (mDebris[i].mPos.mY < 0)
+			isAlive = false;
+		if (mDebris[i].mPos.mY > mPos.mY - (mScale.mY / 2) && mDebris[i].mPos.mY < mPos.mY + (mScale.mY / 2))
+		{
+			if (mDebris[i].mPos.mX > mPos.mX - (mScale.mX / 2) && mDebris[i].mPos.mX < mPos.mX + (mScale.mX / 2))
+				isAlive = false;
+		}
+	}
 }

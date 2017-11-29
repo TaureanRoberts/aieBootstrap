@@ -6,6 +6,7 @@ class Enemy2D : public Entity
 public:
 	Enemy2D();
 	~Enemy2D();
-	void mMove(float deltaTime);
+	void Move(float deltaTime);
+	void Wreck();
 	bool didCrash;
 };

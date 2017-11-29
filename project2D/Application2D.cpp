@@ -83,28 +83,24 @@ void Application2D::update(float deltaTime) {
 	mPlayer->Update(deltaTime);
 
 	//Debris movement
-	mDebris->mMove(deltaTime);
+	mDebris->Move(deltaTime);
 
 	////Enemy movement
 	//mEnemy->mMove(deltaTime);
 
 	//Impact rules
-	for (int i = 0; i < 25; i++)
-	{
-		if (mDebris[i].mScale.mY == mPlayer->mScale.mX)
-		
-			mPlayer->isAlive = false;
-		
-		Vector2 debrisPoints[4] = { Vector2(mDebris[i].mPos.mX + mDebris[i].mScale.mX, mDebris[i].mPos.mY + mDebris[i].mScale.mY),
-								    Vector2(mDebris[i].mPos.mX - mDebris[i].mScale.mX, mDebris[i].mPos.mY - mDebris[i].mScale.mY)};
-		Vector2 playerPoints[4] = { Vector2(mPlayer[i].mPos.mX + mPlayer[i].mScale.mX, mPlayer[i].mPos.mY + mPlayer[i].mScale.mY),
-									Vector2(mPlayer[i].mPos.mX - mPlayer[i].mScale.mX, mPlayer[i].mPos.mY - mPlayer[i].mScale.mY)};
-		if (debrisPoints[i] == playerPoints[i])
-		{
-			if ((debrisPoints[i].mY == playerPoints[i].mY)&&(debrisPoints[i].mX == playerPoints[i].mX))
-				mPlayer->isAlive == false;
-		}
-	}
+	mPlayer->Collision(deltaTime);
+
+	//for (int i = 0; i < 15; i++)
+	//{
+	//	if (mDebris[i].mPos.mY < 0)
+	//		mPlayer->isAlive = false;
+	//	if (mDebris[i].mPos.mY > mPlayer->mPos.mY - (mPlayer->mScale.mY / 2) && mDebris[i].mPos.mY < mPlayer->mPos.mY + (mPlayer->mScale.mY / 2))
+	//	{
+	//		if (mDebris[i].mPos.mX > mPlayer->mPos.mX - (mPlayer->mScale.mX / 2) && mDebris[i].mPos.mX < mPlayer->mPos.mX + (mPlayer->mScale.mX / 2))
+	//			mPlayer->isAlive = false;
+	//	}
+	//}
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -128,10 +124,11 @@ void Application2D::draw()
 		m_2dRenderer->drawSprite(m_shipTexture, mPlayer->mPos.mX, mPlayer->mPos.mY, mPlayer->mScale.mY, mPlayer->mScale.mY);
 
 	//Debris
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		if (mDebris[i].didCrash)
 		{
+			
 			m_2dRenderer->drawSprite(m_DebrisL, mDebris[i].mPos.mX, mDebris[i].mPos.mY, mDebris[i].mScale.mX, mDebris[i].mScale.mY);
 		}
 	}
