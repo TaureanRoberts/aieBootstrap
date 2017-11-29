@@ -33,12 +33,13 @@ void Player2D::Update(float deltaTime)
 		mPos.mY = 689;
 	if (mPos.mY < 30)
 		mPos.mY = 29;
+
 }
 
-bool Player2D::Collision()
+void Player2D::Collision()
 {
 	mDebris[15];
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		if (mDebris[i].mPos.mY < 0)
 			isAlive = false;
@@ -48,5 +49,4 @@ bool Player2D::Collision()
 				isAlive = false;
 		}
 	}
-	return true;
 }

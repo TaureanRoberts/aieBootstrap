@@ -31,9 +31,10 @@ bool Application2D::startup() {
 	m_cameraY = 0;
 	m_timer = 0;
 
-	mPlayer = new Player2D[10];
+	mPlayer = new Player2D;
 	mDebris = new Debris[10];
 	shipLived = false;
+	float tick[60];
 	
 	//Hardsetting Debris position
     float setX = 450;
@@ -79,13 +80,9 @@ void Application2D::update(float deltaTime) {
 
 	//Debris movement + position
 	mDebris->Move(deltaTime);
-	//mDebris->RockPos(deltaTime);
 
 	//Impact rules
-	
-	if (mPlayer->Collision() == true);
-	
-	/*for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		if (mDebris[i].mPos.mY < 0)
 			mPlayer->isAlive = false;
@@ -94,7 +91,25 @@ void Application2D::update(float deltaTime) {
 			if (mDebris[i].mPos.mX > mPlayer->mPos.mX - (mPlayer->mScale.mX / 2) && mDebris[i].mPos.mX < mPlayer->mPos.mX + (mPlayer->mScale.mX / 2))
 				mPlayer->isAlive = false;
 		}
-	}*/
+	}
+
+	//Handles game run time
+	for (int i = 60; i < 0; i++)
+	{
+		float count = 60;
+		float down = 20;
+		m_timer = count;
+		while (m_timer / 60) m_timer--;
+		if (m_timer >= 0)
+		{
+			std::cout << m_timer << endl;
+			m_timer--;
+			if (m_timer <= down)
+			{
+				shipLived = false;
+			}
+		}
+	}
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -103,16 +118,16 @@ void Application2D::update(float deltaTime) {
 
 void Application2D::draw() 
 {
-
 	// wipe the screen to the background colour
 	clearScreen();
-	aie::Input* input = aie::Input::getInstance();
+	//aie::Input* input = aie::Input::getInstance();
 	// set the camera position before we begin rendering
 	m_2dRenderer->setCameraPos(m_cameraX, m_cameraY);
 
 	// begin drawing sprites
 	m_2dRenderer->begin();
 	m_2dRenderer->drawSprite(m_Background, 640, 360, 1280, 720);
+
 	//Player Ship
 	if (mPlayer->isAlive)
 		m_2dRenderer->drawSprite(m_shipTexture, mPlayer->mPos.mX, mPlayer->mPos.mY, mPlayer->mScale.mY, mPlayer->mScale.mY);
@@ -126,46 +141,51 @@ void Application2D::draw()
 		}
 	}
 
-		// demonstrate animation
-		//m_2dRenderer->setUVRect(int(m_timer) % 8 / 8.0f, 0, 1.f / 8, 1.f / 8);
-		//m_2dRenderer->drawSprite(m_texture, 200, 200, 100, 100);
+	// demonstrate animation
+	//m_2dRenderer->setUVRect(int(m_timer) % 8 / 8.0f, 0, 1.f / 8, 1.f / 8);
+	//m_2dRenderer->drawSprite(m_texture, 200, 200, 100, 100);
 
-		// demonstrate spinning sprite
-		//m_2dRenderer->setUVRect(0,0,1,1);
-		//m_2dRenderer->drawSprite(m_shipTexture, 600, 400, 0, 0, m_timer, 1);
+	// demonstrate spinning sprite
+	//m_2dRenderer->setUVRect(0,0,1,1);
+	//m_2dRenderer->drawSprite(m_shipTexture, 600, 400, 0, 0, m_timer, 1);
 
-		// draw a thin line
-		//m_2dRenderer->drawLine(300, 300, 600, 400, 2, 1);
+	// draw a thin line
+	//m_2dRenderer->drawLine(300, 300, 600, 400, 2, 1);
 
-		// draw a moving purple circle
-		//m_2dRenderer->setRenderColour(1, 0, 1, 1);
-		//m_2dRenderer->drawCircle(sin(m_timer) * 100 + 600, 150, 50);
+	// draw a moving purple circle
+	//m_2dRenderer->setRenderColour(1, 0, 1, 1);
+	//m_2dRenderer->drawCircle(sin(m_timer) * 100 + 600, 150, 50);
 
-		// draw a rotating red box
-		//m_2dRenderer->setRenderColour(1, 0, 0, 1);
-		//m_2dRenderer->drawBox(600, 500, 60, 20, m_timer);
+	// draw a rotating red box
+	//m_2dRenderer->setRenderColour(1, 0, 0, 1);
+	//m_2dRenderer->drawBox(600, 500, 60, 20, m_timer);
 
-		// draw a slightly rotated sprite with no texture, colored yellow
-		//m_2dRenderer->setRenderColour(1, 1, 0, 1);
-		//m_2dRenderer->drawSprite(nullptr, 400, 400, 50, 50, 3.14159f * 0.25f, 1);
+	// draw a slightly rotated sprite with no texture, colored yellow
+	//m_2dRenderer->setRenderColour(1, 1, 0, 1);
+	//m_2dRenderer->drawSprite(nullptr, 400, 400, 50, 50, 3.14159f * 0.25f, 1);
 
-		// output some text, uses the last used colour
-		char fps[32];
-		sprintf_s(fps, 32, "FPS: %i", getFPS());
-		m_2dRenderer->drawText(m_font, fps, 0, 720 - 32);
-		m_2dRenderer->drawText(m_font, "Press ESC to quit!", 0, 720 - 64);
+	char tick[60];
+	sprintf_s(tick, 60, "Time Remaining: %f", m_timer );
+	m_2dRenderer->drawText(m_font, tick, 0, 720 - 32);
+	m_2dRenderer->drawText(m_font, "Press ESC to Quit" , 0, 720 - 64);
 
-		//Win Conditions
-		/*if (shipLived = true)
-		{
-			m_2dRenderer->drawSprite(m_Winner, 640, 360, 1280, 720);
-		}*/
-		if (mPlayer->isAlive == false)
-		{
-			m_2dRenderer->drawSprite(m_Loser, 640, 360, 1280, 720);
-		}
+	// output some text, uses the last used colour
+	/*char fps[32];
+	sprintf_s(fps, 32, "FPS: %i", getFPS());
+	m_2dRenderer->drawText(m_font, fps, 0, 720 - 32);
+	m_2dRenderer->drawText(m_font, "Press ESC to quit!", 0, 720 - 64);*/
 
-		// done drawing sprites
-		m_2dRenderer->end();
+	//Win Conditions
+	if (shipLived)
+	{
+		m_2dRenderer->drawSprite(m_Winner, 640, 360, 1280, 720);
+	}
+	if (mPlayer->isAlive == false)
+	{
+		m_2dRenderer->drawSprite(m_Loser, 640, 360, 1280, 720);
+	}
+
+	// done drawing sprites
+	m_2dRenderer->end();
 	
 }
