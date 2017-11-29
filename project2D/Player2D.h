@@ -10,5 +10,6 @@ public:
 	void Update(float deltaTime);
 	void Collision(float deltaTime);
 	bool isAlive;
+	int mRock;
 	Debris *mDebris;
 };

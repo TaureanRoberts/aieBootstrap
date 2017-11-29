@@ -9,6 +9,7 @@ Player2D::Player2D()
 	mScale.mY = 100;
 	isAlive = true;
 	mDebris = new Debris[15];
+	mRock = 10;
 }
 
 Player2D::~Player2D()
@@ -34,7 +35,7 @@ void Player2D::Update(float deltaTime)
 
 void Player2D::Collision(float deltatime)
 {
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < mRock; i++)
 	{
 		if (mDebris[i].mPos.mY < 0)
 			isAlive = false;

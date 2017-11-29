@@ -89,18 +89,18 @@ void Application2D::update(float deltaTime) {
 	//mEnemy->mMove(deltaTime);
 
 	//Impact rules
-	mPlayer->Collision(deltaTime);
+	//mPlayer->Collision(deltaTime);
 
-	//for (int i = 0; i < 15; i++)
-	//{
-	//	if (mDebris[i].mPos.mY < 0)
-	//		mPlayer->isAlive = false;
-	//	if (mDebris[i].mPos.mY > mPlayer->mPos.mY - (mPlayer->mScale.mY / 2) && mDebris[i].mPos.mY < mPlayer->mPos.mY + (mPlayer->mScale.mY / 2))
-	//	{
-	//		if (mDebris[i].mPos.mX > mPlayer->mPos.mX - (mPlayer->mScale.mX / 2) && mDebris[i].mPos.mX < mPlayer->mPos.mX + (mPlayer->mScale.mX / 2))
-	//			mPlayer->isAlive = false;
-	//	}
-	//}
+	for (int i = 0; i < 15; i++)
+	{
+		if (mDebris[i].mPos.mY < 0)
+			mPlayer->isAlive = false;
+		if (mDebris[i].mPos.mY > mPlayer->mPos.mY - (mPlayer->mScale.mY / 2) && mDebris[i].mPos.mY < mPlayer->mPos.mY + (mPlayer->mScale.mY / 2))
+		{
+			if (mDebris[i].mPos.mX > mPlayer->mPos.mX - (mPlayer->mScale.mX / 2) && mDebris[i].mPos.mX < mPlayer->mPos.mX + (mPlayer->mScale.mX / 2))
+				mPlayer->isAlive = false;
+		}
+	}
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))

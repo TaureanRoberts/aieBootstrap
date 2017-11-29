@@ -39,7 +39,6 @@ protected:
 	Enemy2D *mEnemy;
 	float timeLeft;
 
-
 	//Win Condition
 	bool shipLived;
 };
