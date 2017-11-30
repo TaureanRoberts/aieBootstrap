@@ -6,7 +6,7 @@ class Debris : public Entity
 public:
 	Debris();
 	~Debris();
-	void Move(float deltaTime);
+	bool Move(float deltaTime);
 	void RockPos();
 	bool didCrash;
 };

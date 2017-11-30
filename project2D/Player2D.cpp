@@ -10,6 +10,7 @@ Player2D::Player2D()
 	mScale.mX = 100;
 	mScale.mY = 100;
 	isAlive = true;
+	isDead = true;
 	mDebris = new Debris[15];
 	
 }

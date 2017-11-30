@@ -1,4 +1,5 @@
 #include "Debris.h"
+#include <time.h>
 
 Debris::Debris()
 {
@@ -7,27 +8,31 @@ Debris::Debris()
 	mScale.mX = 100;
 	mScale.mY = 100;
 	didCrash = true;
+
 }
 
 Debris::~Debris()
 {
+
 }
 
-void Debris::Move(float deltaTime)
+bool Debris::Move(float deltaTime)
 {
 	Vector2 playerPos(mPos.mX, mPos.mY);
 	for (int i = 0; i < 20; i++)
 		mPos.mX -= 4.0f * deltaTime;
+	return true;
 }
 
 void Debris::RockPos()
 {
-	float setX = 450;
-	float setY = 600;
+	Debris *setPos = new Debris[255];
+	float setX = 900;
+	float setY = 450;
 	for (int i = 0; i < 50; i++)
 	{
-		mPos.mX = setX;
-		mPos.mY = setY;
+		setPos[i].mPos.mX = setX;
+		setPos[i].mPos.mY = setY;
 		setX += 100;
 		if (setX == 950)
 		{

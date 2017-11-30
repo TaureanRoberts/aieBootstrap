@@ -34,22 +34,7 @@ bool Application2D::startup() {
 	mPlayer = new Player2D;
 	mDebris = new Debris[10];
 	shipLived = false;
-	float tick[60];
-	
-	//Hardsetting Debris position
-    float setX = 450;
-	float setY = 600;
-	for (int i = 0; i < 10; i++)
-	{
-		mDebris[i].mPos.mX = setX;
-		mDebris[i].mPos.mY = setY;
-		setX += 100;
-		if (setX == 950)
-		{
-			setX = 450;
-			setY -= 100;
-		}
-	}
+
 	return true;
 }
 
@@ -77,10 +62,15 @@ void Application2D::update(float deltaTime) {
 	Vector2 playerPos(mPlayer->mPos.mX, mPlayer->mPos.mY);
 	//Calls Player Movement
 	mPlayer->Update(deltaTime);
-
+	mDebris->RockPos();
 	//Debris movement + position
-	mDebris->Move(deltaTime);
-
+	for (int i = 0; i <= 5; i++)
+	{ 
+	if (mDebris[i].Move(deltaTime) == true);
+		{
+			i+=1;
+		}
+	}
 	//Impact rules
 	for (int i = 0; i < 10; i++)
 	{
@@ -94,10 +84,10 @@ void Application2D::update(float deltaTime) {
 	}
 
 	//Handles game run time
-	for (int i = 60; i < 0; i++)
+	for (int i = deltaTime; i < 0; i++)
 	{
 		float count = 60;
-		float down = 20;
+		float down = 0;
 		m_timer = count;
 		while (m_timer / 60) m_timer--;
 		if (m_timer >= 0)
@@ -106,7 +96,7 @@ void Application2D::update(float deltaTime) {
 			m_timer--;
 			if (m_timer <= down)
 			{
-				shipLived = false;
+				shipLived = true;
 			}
 		}
 	}
@@ -120,7 +110,7 @@ void Application2D::draw()
 {
 	// wipe the screen to the background colour
 	clearScreen();
-	//aie::Input* input = aie::Input::getInstance();
+	aie::Input* input = aie::Input::getInstance();
 	// set the camera position before we begin rendering
 	m_2dRenderer->setCameraPos(m_cameraX, m_cameraY);
 
@@ -133,11 +123,12 @@ void Application2D::draw()
 		m_2dRenderer->drawSprite(m_shipTexture, mPlayer->mPos.mX, mPlayer->mPos.mY, mPlayer->mScale.mY, mPlayer->mScale.mY);
 
 	//Debris
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		if (mDebris[i].didCrash)
 		{
 			m_2dRenderer->drawSprite(m_DebrisL, mDebris[i].mPos.mX, mDebris[i].mPos.mY, mDebris[i].mScale.mX, mDebris[i].mScale.mY);
+			//i++;
 		}
 	}
 
@@ -164,8 +155,8 @@ void Application2D::draw()
 	//m_2dRenderer->setRenderColour(1, 1, 0, 1);
 	//m_2dRenderer->drawSprite(nullptr, 400, 400, 50, 50, 3.14159f * 0.25f, 1);
 
-	char tick[60];
-	sprintf_s(tick, 60, "Time Remaining: %f", m_timer );
+	char tick[32];
+	sprintf_s(tick, 32, "Time Remaining: %f", m_timer );
 	m_2dRenderer->drawText(m_font, tick, 0, 720 - 32);
 	m_2dRenderer->drawText(m_font, "Press ESC to Quit" , 0, 720 - 64);
 
@@ -176,7 +167,7 @@ void Application2D::draw()
 	m_2dRenderer->drawText(m_font, "Press ESC to quit!", 0, 720 - 64);*/
 
 	//Win Conditions
-	if (shipLived)
+	if (mPlayer->isDead == false)
 	{
 		m_2dRenderer->drawSprite(m_Winner, 640, 360, 1280, 720);
 	}
