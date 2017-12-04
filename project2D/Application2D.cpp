@@ -167,13 +167,13 @@ void Application2D::draw()
 	m_2dRenderer->drawText(m_font, "Press ESC to quit!", 0, 720 - 64);*/
 
 	//Win Conditions
+	/*if (mPlayer->isAlive == false)
+	{
+		m_2dRenderer->drawSprite(m_Winner, 640, 360, 1280, 720);
+	}*/
 	if (mPlayer->isAlive == false)
 	{
 		m_2dRenderer->drawSprite(m_Loser, 640, 360, 1280, 720);
-	}
-	if (mPlayer->isDead == false)
-	{
-		m_2dRenderer->drawSprite(m_Winner, 640, 360, 1280, 720);
 	}
 	// done drawing sprites
 	m_2dRenderer->end();
