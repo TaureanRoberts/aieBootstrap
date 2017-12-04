@@ -4,7 +4,7 @@
 #include "Input.h"
 #include <application.h>
 #include "Player2D.h"
-
+#include <time.h>
 
 Application2D::Application2D() {
 
@@ -30,9 +30,18 @@ bool Application2D::startup() {
 	m_cameraX = 0;
 	m_cameraY = 0;
 	m_timer = 0;
-
+	srand(time(NULL));
 	mPlayer = new Player2D;
 	mDebris = new Debris[10];
+
+	for(int i = 0; i < 10; i++)
+	{
+		mDebris[i] = Debris(Vector2(1380, rand() % 720), Vector2(100,100));
+		if(mDebris)
+		{
+			
+		}
+	}
 	shipLived = false;
 
 	return true;
@@ -45,7 +54,7 @@ void Application2D::shutdown()
 	delete m_shipTexture;
 	delete m_2dRenderer;
 	
-	delete[] mPlayer;
+	delete mPlayer;
 	delete[] mDebris;
 	delete m_Background;
 	delete m_Winner;
@@ -59,16 +68,16 @@ void Application2D::update(float deltaTime) {
 
 	// input example
 	aie::Input* input = aie::Input::getInstance();
-	Vector2 playerPos(mPlayer->mPos.mX, mPlayer->mPos.mY);
+	
 	//Calls Player Movement
 	mPlayer->Update(deltaTime);
-	mDebris->RockPos();
 	//Debris movement + position
-	for (int i = 0; i <= 5; i++)
+	mDebris->Move(deltaTime);
+	for (int i = 0; i < 5; i++)
 	{ 
 	if (mDebris[i].Move(deltaTime) == true);
 		{
-			i+=1;
+			i++;
 		}
 	}
 	//Impact rules
@@ -83,23 +92,9 @@ void Application2D::update(float deltaTime) {
 		}
 	}
 
-	//Handles game run time
-	for (int i = deltaTime; i < 0; i++)
-	{
-		float count = 60;
-		float down = 0;
-		m_timer = count;
-		while (m_timer / 60) m_timer--;
-		if (m_timer >= 0)
-		{
-			std::cout << m_timer << endl;
-			m_timer--;
-			if (m_timer <= down)
-			{
-				shipLived = true;
-			}
-		}
-	}
+	//Sets time rules
+	if (getTime() >= 20)
+		shipLived = true;
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -110,7 +105,6 @@ void Application2D::draw()
 {
 	// wipe the screen to the background colour
 	clearScreen();
-	aie::Input* input = aie::Input::getInstance();
 	// set the camera position before we begin rendering
 	m_2dRenderer->setCameraPos(m_cameraX, m_cameraY);
 
@@ -123,12 +117,11 @@ void Application2D::draw()
 		m_2dRenderer->drawSprite(m_shipTexture, mPlayer->mPos.mX, mPlayer->mPos.mY, mPlayer->mScale.mY, mPlayer->mScale.mY);
 
 	//Debris
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		if (mDebris[i].didCrash)
 		{
 			m_2dRenderer->drawSprite(m_DebrisL, mDebris[i].mPos.mX, mDebris[i].mPos.mY, mDebris[i].mScale.mX, mDebris[i].mScale.mY);
-			//i++;
 		}
 	}
 
@@ -156,7 +149,7 @@ void Application2D::draw()
 	//m_2dRenderer->drawSprite(nullptr, 400, 400, 50, 50, 3.14159f * 0.25f, 1);
 
 	char tick[32];
-	sprintf_s(tick, 32, "Time Remaining: %f", m_timer );
+	sprintf_s(tick, 32, "Time Remaining: %f", getTime() );
 	m_2dRenderer->drawText(m_font, tick, 0, 720 - 32);
 	m_2dRenderer->drawText(m_font, "Press ESC to Quit" , 0, 720 - 64);
 
@@ -167,10 +160,10 @@ void Application2D::draw()
 	m_2dRenderer->drawText(m_font, "Press ESC to quit!", 0, 720 - 64);*/
 
 	//Win Conditions
-	/*if (mPlayer->isAlive == false)
+	if (shipLived == true)
 	{
 		m_2dRenderer->drawSprite(m_Winner, 640, 360, 1280, 720);
-	}*/
+	}
 	if (mPlayer->isAlive == false)
 	{
 		m_2dRenderer->drawSprite(m_Loser, 640, 360, 1280, 720);
