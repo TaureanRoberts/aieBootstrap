@@ -8,7 +8,6 @@ Debris::Debris()
 	mScale.mX = 100;
 	mScale.mY = 100;
 	didCrash = true;
-
 }
 
 Debris::Debris(Vector2 pos, Vector2 scale)
@@ -24,7 +23,7 @@ Debris::~Debris()
 
 bool Debris::Move(float deltaTime)
 {
-	srand((unsigned)time(0));
+	srand((unsigned)time(NULL));
 	int someSpeed = 0;
 	for (int i = 0; i < 20; i++)
 	{
@@ -33,4 +32,16 @@ bool Debris::Move(float deltaTime)
 	}
 
 	return true;
+}
+
+void Debris::resetRock(float deltaTime)
+{
+	srand((unsigned)time(NULL));
+	int somePosition = 0;
+	mPos.mX = 1280;
+	//for (int i = 0; i < 20; i++)
+	//{
+	//	somePosition = (rand() % ((20+1) - 10)+10);
+	//	mPos.mX = somePosition * deltaTime;
+	//}
 }

@@ -34,13 +34,10 @@ bool Application2D::startup() {
 	mPlayer = new Player2D;
 	mDebris = new Debris[10];
 
+	//sets the position on y axis
 	for(int i = 0; i < 10; i++)
 	{
 		mDebris[i] = Debris(Vector2(1380, rand() % 720), Vector2(100,100));
-		if(mDebris)
-		{
-			
-		}
 	}
 	shipLived = false;
 
@@ -68,14 +65,14 @@ void Application2D::update(float deltaTime) {
 
 	// input example
 	aie::Input* input = aie::Input::getInstance();
-	
+
 	//Calls Player Movement
 	mPlayer->Update(deltaTime);
 	//Debris movement + position
 	mDebris->Move(deltaTime);
-	for (int i = 0; i < 5; i++)
-	{ 
-	if (mDebris[i].Move(deltaTime) == true);
+	for (int i = 0; i < 100; i++)
+	{
+		if (mDebris[i].Move(deltaTime) == true);
 		{
 			i++;
 		}
@@ -92,6 +89,14 @@ void Application2D::update(float deltaTime) {
 		}
 	}
 
+	for (int i = 0; i < 10; i++)
+	{
+		if (mDebris[i].mPos.mX < 0)
+		{
+			mDebris[i].resetRock(deltaTime);
+
+		}
+	}
 	//Sets time rules
 	if (getTime() >= 20)
 		shipLived = true;
@@ -123,6 +128,7 @@ void Application2D::draw()
 		{
 			m_2dRenderer->drawSprite(m_DebrisL, mDebris[i].mPos.mX, mDebris[i].mPos.mY, mDebris[i].mScale.mX, mDebris[i].mScale.mY);
 		}
+			
 	}
 
 	// demonstrate animation

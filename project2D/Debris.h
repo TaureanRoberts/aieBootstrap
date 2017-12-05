@@ -1,5 +1,7 @@
 #pragma once
 #include "Entity.h"
+#include "Player2D.h"
+
 
 class Debris : public Entity
 {
@@ -9,4 +11,5 @@ public:
 	~Debris();
 	bool Move(float deltaTime);
 	bool didCrash;
+	void resetRock(float deltaTime);
 };
