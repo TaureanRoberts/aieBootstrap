@@ -23,6 +23,7 @@ protected:
 	aie::Texture*		m_texture;
 	aie::Font*			m_font;
 
+	aie::Texture*       m_Loader;
 	aie::Texture*       m_Winner;
 	aie::Texture*       m_Loser;
 	aie::Texture*       m_Background;

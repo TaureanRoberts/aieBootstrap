@@ -22,6 +22,7 @@ bool Application2D::startup() {
 	m_shipTexture = new aie::Texture("./textures/wship1.png");
 	m_font = new aie::Font("./font/consolas.ttf", 32);
 
+	m_Loader = new aie::Texture("./textures/Load.png") ;
 	m_Loser = new aie::Texture("./textures/gameOver.png");
 	m_Winner = new aie::Texture("./textures/winDoge.jpg");
 	m_DebrisL = new aie::Texture("./textures/rock_large.png");
