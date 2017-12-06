@@ -22,12 +22,11 @@ Debris::~Debris()
 }
 
 bool Debris::Move(float deltaTime)
-{
-	srand((unsigned)time(NULL));
-	int someSpeed = 0;
+{	
+	float someSpeed;
 	for (int i = 0; i < 20; i++)
 	{
-		someSpeed = (rand() % ((20+1) - 10)+ 10 );
+		someSpeed = (rand() % ((35+1) - 10)+ 10);
 		mPos.mX -= someSpeed * deltaTime;
 	}
 
@@ -35,13 +34,7 @@ bool Debris::Move(float deltaTime)
 }
 
 void Debris::resetRock(float deltaTime)
-{
-	srand((unsigned)time(NULL));
-	int somePosition = 0;
+{	
 	mPos.mX = 1280;
-	//for (int i = 0; i < 20; i++)
-	//{
-	//	somePosition = (rand() % ((20+1) - 10)+10);
-	//	mPos.mX = somePosition * deltaTime;
-	//}
+	mPos.mY = rand() % 720;
 }

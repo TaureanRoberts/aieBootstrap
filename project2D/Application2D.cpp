@@ -88,17 +88,17 @@ void Application2D::update(float deltaTime) {
 				mPlayer->isAlive = false;
 		}
 	}
-
+	//Spawn Rules
 	for (int i = 0; i < 10; i++)
 	{
-		if (mDebris[i].mPos.mX < 0)
+		if (mDebris[i].mPos.mX < -100)
 		{
 			mDebris[i].resetRock(deltaTime);
-
+			
 		}
 	}
 	//Sets time rules
-	if (getTime() >= 20)
+	if (getTime() >= 140)
 		shipLived = true;
 
 	// exit the application
@@ -124,11 +124,10 @@ void Application2D::draw()
 	//Debris
 	for (int i = 0; i < 10; i++)
 	{
-		if (mDebris[i].didCrash)
+		if (mDebris)
 		{
 			m_2dRenderer->drawSprite(m_DebrisL, mDebris[i].mPos.mX, mDebris[i].mPos.mY, mDebris[i].mScale.mX, mDebris[i].mScale.mY);
 		}
-			
 	}
 
 	// demonstrate animation
@@ -155,7 +154,7 @@ void Application2D::draw()
 	//m_2dRenderer->drawSprite(nullptr, 400, 400, 50, 50, 3.14159f * 0.25f, 1);
 
 	char tick[32];
-	sprintf_s(tick, 32, "Time Remaining: %f", getTime() );
+	sprintf_s(tick, 32, "Time Alive: %f", getTime() );
 	m_2dRenderer->drawText(m_font, tick, 0, 720 - 32);
 	m_2dRenderer->drawText(m_font, "Press ESC to Quit" , 0, 720 - 64);
 

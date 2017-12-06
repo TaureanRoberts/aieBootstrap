@@ -34,7 +34,6 @@ protected:
 
 	Player2D *mPlayer;
 	Debris *mDebris;
-	float timeLeft;
 	float tick;
 	
 	//Win Condition
