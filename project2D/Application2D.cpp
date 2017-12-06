@@ -109,6 +109,7 @@ void Application2D::update(float deltaTime) {
 
 void Application2D::draw() 
 {
+	aie::Input* input = aie::Input::getInstance();
 	// wipe the screen to the background colour
 	clearScreen();
 	// set the camera position before we begin rendering
@@ -166,13 +167,14 @@ void Application2D::draw()
 	m_2dRenderer->drawText(m_font, "Press ESC to quit!", 0, 720 - 64);*/
 
 	//Win Conditions
-	if (shipLived == true)
-	{
-		m_2dRenderer->drawSprite(m_Winner, 640, 360, 1280, 720);
-	}
 	if (mPlayer->isAlive == false)
 	{
 		m_2dRenderer->drawSprite(m_Loser, 640, 360, 1280, 720);
+	}
+	if (shipLived == true)
+	{
+		m_2dRenderer->drawSprite(m_Winner, 640, 360, 1280, 720);
+		m_2dRenderer->end();
 	}
 	// done drawing sprites
 	m_2dRenderer->end();
