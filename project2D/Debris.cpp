@@ -1,5 +1,5 @@
 #include "Debris.h"
-#include "time.h"
+
 
 Debris::Debris()
 {
@@ -7,7 +7,6 @@ Debris::Debris()
 	mPos.mY = 450;
 	mScale.mX = 100;
 	mScale.mY = 100;
-	didCrash = true;
 }
 
 Debris::Debris(Vector2 pos, Vector2 scale)

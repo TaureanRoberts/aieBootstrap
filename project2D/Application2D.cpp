@@ -41,7 +41,7 @@ bool Application2D::startup() {
 		mDebris[i] = Debris(Vector2(1380, rand() % 720), Vector2(100,100));
 	}
 	shipLived = false;
-
+	gameStart = false;
 	return true;
 }
 
@@ -99,7 +99,7 @@ void Application2D::update(float deltaTime) {
 		}
 	}
 	//Sets time rules
-	if (getTime() >= 140)
+	if (getTime() >= 14)
 		shipLived = true;
 
 	// exit the application
@@ -107,9 +107,11 @@ void Application2D::update(float deltaTime) {
 		quit();
 }
 
-void Application2D::draw() 
+void Application2D::draw()
 {
 	aie::Input* input = aie::Input::getInstance();
+	
+
 	// wipe the screen to the background colour
 	clearScreen();
 	// set the camera position before we begin rendering
@@ -174,7 +176,6 @@ void Application2D::draw()
 	if (shipLived == true)
 	{
 		m_2dRenderer->drawSprite(m_Winner, 640, 360, 1280, 720);
-		m_2dRenderer->end();
 	}
 	// done drawing sprites
 	m_2dRenderer->end();

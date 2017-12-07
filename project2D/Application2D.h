@@ -36,7 +36,8 @@ protected:
 	Player2D *mPlayer;
 	Debris *mDebris;
 	float tick;
-	
+	bool gameStart;
+
 	//Win Condition
 	bool shipLived;
 };
