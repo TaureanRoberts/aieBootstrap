@@ -11,9 +11,9 @@ public:
 	//Protection Level: Public
 	Entity();
 	//Prototype: ~Entity()
-	//Description: deconstructs the information given on in the default
-	//Precondition:
-	//Post Condition:
+	//Description: Deconstructs the information given on in the default
+	//Precondition: Takes in the default construture
+	//Post Condition: deallocates memory
 	//Protection Level: Public
 	~Entity();
 	//Prototype: Vector2 mScale
