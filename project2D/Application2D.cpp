@@ -99,7 +99,7 @@ void Application2D::update(float deltaTime) {
 		}
 	}
 	//Sets time rules
-	if (getTime() >= 14)
+	if (getTime() >= 140)
 		shipLived = true;
 
 	// exit the application
