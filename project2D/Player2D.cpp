@@ -1,6 +1,5 @@
 #include "Player2D.h"
 #include <Input.h>
-#include "Debris.h"
 #include "Application2D.h"
 
 Player2D::Player2D()
