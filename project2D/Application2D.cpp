@@ -73,7 +73,7 @@ void Application2D::update(float deltaTime) {
 	mDebris->Move(deltaTime);
 	for (int i = 0; i < 100; i++)
 	{
-		if (mDebris[i].Move(deltaTime) == true);
+		if (mDebris[i].Move(deltaTime) == true)
 		{
 			i++;
 		}
