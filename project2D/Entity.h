@@ -1,5 +1,6 @@
 #pragma once
 #include <Vector_2.h>
+#include <ListType.h>
 
 class Entity
 {
