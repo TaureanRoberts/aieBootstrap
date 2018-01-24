@@ -2,6 +2,7 @@
 #include <Vector_2.h>
 #include <ListType.h>
 
+
 class Entity
 {
 public:
@@ -29,4 +30,7 @@ public:
 	//Post Condition: returns the positon 
 	//Protection Level: Public
 	Vector2 mPos;
+
+	//LinkedListType<>
+
 };
